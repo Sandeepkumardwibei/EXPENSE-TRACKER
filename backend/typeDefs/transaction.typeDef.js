@@ -8,19 +8,19 @@ const transactionTypeDef = `#graphql
     amount: Float!
     location: String
     date: String!
-    user: User!  # Ensure User is defined in userTypeDef
+    user: User!
   }
 
   type Query {
-    transactions: [Transaction!] # Include a list of transactions
-    transaction(transactionId: ID!): Transaction
+    transactions: [Transaction!]
+    transaction(transactionId:ID!): Transaction
     categoryStatistics: [CategoryStatistics!]
   }
 
   type Mutation {
     createTransaction(input: CreateTransactionInput!): Transaction!
     updateTransaction(input: UpdateTransactionInput!): Transaction!
-    deleteTransaction(transactionId: ID!): Transaction!
+    deleteTransaction(transactionId:ID!): Transaction!
   }
 
   type CategoryStatistics {
