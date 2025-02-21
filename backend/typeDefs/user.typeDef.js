@@ -6,13 +6,12 @@ const userTypeDef = `#graphql
     password: String!
     profilePicture: String
     gender: String!
-    transactions: [Transaction!]  # 👈 Ensure this field references Transaction
+    transactions: [Transaction!]
   }
 
   type Query {
     authUser: User
-    user(userId: ID!): User
-    users: [User!]
+    user(userId:ID!): User
   }
 
   type Mutation {
