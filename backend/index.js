@@ -36,6 +36,10 @@ const MongoDBStore = connectMongo(session);
 const store = new MongoDBStore({
   uri: process.env.MONGO_URI,
   collection: "sessions",
+  connectionOptions: {
+    tls: true,
+    tlsAllowInvalidCertificates: false,
+  },
 });
 
 store.on("error", (err) => console.log(err));
