@@ -1,22 +1,3 @@
-// connectDB.js
-import mongoose from "mongoose";
-
-export const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      tls: true, // Forces secure connection
-      tlsAllowInvalidCertificates: false, // Ensures valid SSL certs
-    });
-    console.log("✅ MongoDB Connected");
-  } catch (err) {
-    console.error("❌ MongoDB Connection Error:", err);
-    process.exit(1);
-  }
-};
-
-// index.js
 import express from "express";
 import http from "http";
 import cors from "cors";
@@ -35,7 +16,7 @@ import { buildContext } from "graphql-passport";
 import mergedResolvers from "./resolvers/index.js";
 import mergedTypeDefs from "./typeDefs/index.js";
 
-import { connectDB } from "./db/connectDB.js";
+import { connectDB } from "./db/connectDB.js";  // ✅ Import only once
 import { configurePassport } from "./passport/passport.config.js";
 
 import job from "./cron.js";
@@ -51,15 +32,10 @@ const httpServer = http.createServer(app);
 
 const MongoDBStore = connectMongo(session);
 
+// ✅ Removed duplicate connection options (already handled in connectDB.js)
 const store = new MongoDBStore({
   uri: process.env.MONGO_URI,
   collection: "sessions",
-  connectionOptions: {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    tls: true, // Ensure SSL connection
-    tlsAllowInvalidCertificates: false,
-  },
 });
 
 store.on("error", (err) => console.log(err));
@@ -86,6 +62,8 @@ const server = new ApolloServer({
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 
+// ✅ Connect to MongoDB **before** starting the server
+await connectDB();
 await server.start();
 
 app.use(
@@ -106,7 +84,7 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "frontend/dist", "index.html"));
 });
 
+// ✅ Start the HTTP server only after DB connection is established
 await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
-await connectDB();
 
 console.log(`🚀 Server ready at http://localhost:4000/graphql`);
