@@ -11,9 +11,9 @@ A simple Expense Tracker application that helps users manage their expenses effi
 - Generate reports  
 
 ## Technologies Used  
-- Programming Language: (e.g., Python, JavaScript)  
-- Frameworks/Libraries: (e.g., React, Flask, Express.js)  
-- Database: (e.g., SQLite, Firebase, MongoDB)  
+- Programming Language: JavaScript 
+- Frameworks/Libraries: React,Next.js  
+- Database: MongoDB  
 
 ## Installation  
 
