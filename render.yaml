@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: expense-tracker-api
+    env: node
+    buildCommand: npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.x
+      - key: MONGO_URI
+        sync: false
+      - key: SESSION_SECRET
+        sync: false
