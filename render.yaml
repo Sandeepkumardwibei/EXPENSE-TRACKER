@@ -8,7 +8,7 @@ services:
     envVars:
       - key: NODE_VERSION
         value: 20.x
-      - key: MONGO_URI
+      - key: mongodb+srv://sandeepkumardwibei09_db_user:kyp2CIFUI6BzdeV1@cluster0.gghufet.mongodb.net/?appName=Cluster0
         sync: false
-      - key: SESSION_SECRET
+      - key: mysecret1234
         sync: false
